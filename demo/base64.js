@@ -15,7 +15,7 @@
 		},
 		getDec: function(str) {//获取混淆字符位置坐标
 			str = parseInt(str, 16)[toString]();//前4位倒序的16进制
-			str[substring](0, 2)[split]("");
+			//str[substring](0, 2)[split]("");
 			return {
 				pre: str[substring](0, 2)[split](""),//前面坐标
 				tail: str[substring](2)[split]("")//后面坐标
@@ -62,7 +62,7 @@
 					length=str.length;
 				/** 4101开始16进制是4位数 **/
 				for(var i=4101;i<=9999;i++){//找出所有符合要求的16进制4位数
-					n=i[toString](16);//16转成10
+					n=i[toString](16);//10转成16
 					if(length>=8&&!(Math.floor(i/100)%10===0||i%10===0)&&n.length===4){
 					//正常的base64编码长度大于8才前后加混淆字符
 						//console.log(i,n);
