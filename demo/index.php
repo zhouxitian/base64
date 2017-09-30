@@ -1,11 +1,14 @@
 <?php 
 class base64{
-	public function encode($str){
-		$base64=base64_encode($str);
-		$random=$this->getRanNum($base64);//获取16进制是4位数的随机字符
-		$pos = $this->getDec($random);//获取混淆位置坐标
-		$base64 = $this->addStr($base64, $pos);//插入混淆字符		
-		return join('',array_reverse(str_split($random))).$base64;
+	public function encode($str){//加密
+		if($str!=''){
+			$base64=base64_encode($str);
+			$random=$this->getRanNum($base64);//获取16进制是4位数的随机字符
+			$pos = $this->getDec($random);//获取混淆位置坐标
+			$base64 = $this->addStr($base64, $pos);//插入混淆字符		
+			return join('',array_reverse(str_split($random))).$base64;
+		}
+		return null;
 	}
 	private function getRanNum($str){
 		$length=strlen($str);
@@ -43,7 +46,8 @@ class base64{
 		return $str;
 	}
 	private function getRanStr($num){//获取指定个数随机字符串
-		$str=[0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','+'];
+		$enKey="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		$str=str_split($enKey);
 		$length=count($str);
 		$res = "";
 		 for(; $num-- ;) {
@@ -56,9 +60,11 @@ class base64{
 		return substr($str,0,$pos).$addstr.substr($str,$pos);
 	}
 }
-if(isset($_GET["str"])){
+if(isset($_GET["str"])&&$_GET["str"]!=''){
+	$str=$_GET["str"];
 	$code=new base64();
-	$data["encode"]=$code->encode($_GET["str"]);
+	//$data["str"]=$str;
+	$data["encode"]=$code->encode($str);
 	$data["status"]=200;
 }else{
 	$data["status"]=-1;

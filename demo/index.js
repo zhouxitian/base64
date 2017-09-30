@@ -1,8 +1,8 @@
 ﻿;(function(window){
 	//var str=base64.tranCode.encode('http://mvvideo11.meitudata.com/595721bce8d772919.mp4?k=9dcf816866d9f46a1d640ee23848b27f&t=59b20419');
 	var content=document.getElementById("content"),
-		encode=document.getElementById("encode"),
-		decode=document.getElementById("decode"),
+		encode=document.getElementById("encode"),//加密
+		decode=document.getElementById("decode"),//解密
 		result=document.getElementById("result");
 	/**encode.onclick=function(){//js方式
 		var value=content.value,
@@ -42,6 +42,7 @@
 						}
 					}else if(dataType=="json"||dataType=="JSON"){
 						if(callback!=null){//将json字符串转换为js对象
+							console.log(this.responseText);
 							callback(eval("(" + this.responseText + ")"));
 						}
 					}
@@ -52,14 +53,16 @@
 					}, !timeout ? 15000 : timeout);
 				}
 			}
-			xhr.open("get", "index.php?str="+value, true);
+			xhr.open("get", "index.php?str="+encodeURIComponent(value)+"&time="+new Date().getTime(), true);
 			xhr.send(null);
 		}
 	}
 	function callback(data){
 		if(data.status==200){
 			var base64str=base64.tranCode.decode(data.encode);
-			result.innerHTML="正常base64加密：<br />"+window.btoa(unescape(encodeURIComponent(content.value)))+"<br /><br />混淆base64加密：<br />"+data.encode+"<br /><br />混淆base64解密：<br />"+base64str;
+			result.innerHTML="正常base64加密：<br />"+base64.tranCode.btoa(unescape(encodeURIComponent(content.value)))+"<br /><br />混淆base64加密：<br />"+data.encode+"<br /><br />混淆base64解密：<br />"+base64str;
+			//result.innerHTML="正常base64加密：<br />"+base64to.encode(content.value)+"<br /><br />混淆base64加密：<br />"+data.encode+"<br /><br />混淆base64解密：<br />"+base64str;
+			//result.innerHTML="混淆base64加密：<br />"+data.encode+"<br /><br />混淆base64解密：<br />"+base64str;
 		}else{
 			console.warn(data.errMsg);
 		}
