@@ -5,4 +5,4 @@ js base64字符混淆加密、解密,能解密美拍的视频地址。例子里�
 - base64.tranCode.encode(value)//加密
 
 <p> 含有中文时字符串需要使用encodeURIComponent转码。可以参考例子。</p> 
-<p> 可以参考我的博客说明：[http://www.cnblogs.com/xitianzhou/](http://www.cnblogs.com/xitianzhou/)</p> 
+<p> 可以参考我的博客说明：[http://www.cnblogs.com/xitianzhou/]</p> 
