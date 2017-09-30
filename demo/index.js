@@ -42,7 +42,6 @@
 						}
 					}else if(dataType=="json"||dataType=="JSON"){
 						if(callback!=null){//将json字符串转换为js对象
-							console.log(this.responseText);
 							callback(eval("(" + this.responseText + ")"));
 						}
 					}
